@@ -1,8 +1,10 @@
 const express = require('express');
-const router = express.router;
 
-const {accounts, writeJSON} = require('../data');
+const router = express.Router();
 
+const { accounts, writeJSON } = require('../data.js');
+
+router.get('/transfer', (req, res) =>  res.render('transfer'));
 router.post('/transfer', (req, res) => {
     accounts[req.body.from].balance -= req.body.amount;
     accounts[req.body.to].balance += parseInt(req.body.amount, 10);

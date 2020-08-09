@@ -6,11 +6,8 @@ const app = new express();
 
 const { accounts, users, writeJSON } = require('./data.js');
 
-const accountRoutes = require('./routes/accounts');
-const serviceRoutes = require('./routes/services');
-
-app.use('/account','accountRoutes');
-app.use('/services','serviceRoutes');
+const accountRoutes = require('./routes/accounts.js')
+const servicesRoutes = require('./routes/services.js')
 
 app.set('views',path.join(__dirname, '/views'));
 app.set('view engine','ejs');
@@ -20,9 +17,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => res.render('index', { title: 'Account Summary', accounts: accounts }));
 
-app.get('/transfer', (req, res) =>  res.render('transfer'));
-
-
+app.use('/account', accountRoutes);
+app.use('/services', servicesRoutes);
 
 app.get('/profile', (req, res) =>  res.render('profile', { user: users[0] }));
 
